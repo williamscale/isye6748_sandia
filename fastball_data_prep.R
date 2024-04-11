@@ -108,12 +108,12 @@ pitches.season <- pitches.season %>%
 
 ff.release_speed.plot <- pitches.season %>%
   ungroup() %>%
-  filter(pitcher == 543243, game_year == 2016) %>%
-  select(pitcher, player_name, game_date, inning, at_bat_number, pitch_number,
+  filter(pitcher == 543243) %>%
+  select(pitcher, player_name, game_year, game_date, inning, at_bat_number, pitch_number,
          release_speed) %>%
   arrange(game_date, inning, at_bat_number, pitch_number) %>%
   mutate(pitch.n = row_number()) %>%
-  group_by(game_date) %>%
+  group_by(game_year) %>%
   mutate(mean.release_speed = mean(release_speed),
          pitch.game.n = mean(pitch.n))
 
@@ -121,23 +121,23 @@ ff.release_speed.plot <- pitches.season %>%
 #   geom_point(aes(x = pitch.n,
 #                  y = release_speed,
 #                  color = 'Pitch Velocity'),
-#              alpha = 0.2) +
+#              alpha = 0.1) +
 #   geom_point(aes(x = pitch.game.n,
 #                  y = mean.release_speed,
-#                  color = 'Mean Pitch Velocity by Game'),
+#                  color = 'Mean Pitch Velocity by Season'),
 #              size = 2.5) +
 #   scale_color_manual(name = NULL,
 #                      breaks = c('Pitch Velocity',
-#                                 'Mean Pitch Velocity by Game'),
+#                                 'Mean Pitch Velocity by Season'),
 #                      values = c('Pitch Velocity' = '#268bd2',
-#                                 'Mean Pitch Velocity by Game' = '#cb4b16')) +
-#   ggtitle('Sonny Gray', subtitle = 'Fastballs Thrown in 2016') +
+#                                 'Mean Pitch Velocity by Season' = '#cb4b16')) +
+#   ggtitle('Sonny Gray', subtitle = 'Fastballs Thrown 2015-2023') +
 #   xlab('Pitch Number') +
 #   ylab('Release Speed [mph]') +
 #   theme_solarized() +
 #   theme(legend.key = element_rect(fill = '#fdf6e3'),
 #         legend.position = 'bottom')
-# ggsave('./Viz/Final/gray_game_mean.png')
+# ggsave('./Viz/Final/gray_season_mean.png')
 
 
 # colSums(is.na(pitches.season))
